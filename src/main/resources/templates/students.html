@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Students</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Фильтр</h1>
+    <form method="get" th:action="@{'/students'}">
+        <input class="form-control" th:value="${param.min_score != null ? param.min_score : ''}" type="number" placeholder="Минимальный балл" name="min_score"/>
+        <input class="form-control" th:value="${param.max_score != null ? param.max_score : ''}" type="number" placeholder="Максимальный балл" name="max_score"/>
+        <button class="btn btn-primary" type="submit">Найти</button>
+    </form>
+    <h1>Список студентов</h1>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Средний балл</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="s : ${students}">
+            <td th:text="${s.id}"/>
+            <td th:text="${s.name}"/>
+            <td th:text="${s.score}"/>
+            <td>
+                <a class="btn btn-danger" th:href="@{'/students/delete/' + ${s.id}}">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
