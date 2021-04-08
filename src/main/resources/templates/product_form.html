@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Spring MVC GeekApp</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="container">
+    <h1 th:if="${product.getId() > 0}" th:text="'Редактировать продукт #' + ${product.getId()}" />
+    <h1 th:if="${product.getId() < 1}">Создать новый продукт</h1>
+    <form th:action="@{/products/save}" th:object="${product}" method="POST">
+        <input hidden th:field="*{id}"/>
+        <table class="table">
+            <tr>
+                <td>Название:</td>
+                <td><input th:field="*{title}"/></td>
+            </tr>
+            <tr>
+                <td>Цена:</td>
+                <td><input th:field="*{cost}"/></td>
+            </tr>
+        <br>
+        </table>
+        <input type="submit" class="btn btn-success" value="Сохранить" />
+    </form>
+    <br>
+    <a th:href="@{/}">на Главную страницу</a>
+</div>
+</body>
+</html>
